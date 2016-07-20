@@ -1,8 +1,11 @@
 <h2>Employee: <%= @employee.name() %></h2>
 <hr>
-
-<% if @project %>
-  <h3> Currently working on: <%= @project.name %> </h3>
+<h3> Currently working on:</h3>
+<ul>
+<% if @employee.projects.each() do |project| %>
+ <li><%= project.name %> </li>
+<% end %>
+</ul>
 
 <% else %>
     <p><strong>Employee has not yet been assigned to a project.</strong></p>

@@ -32,11 +32,6 @@ end
 
 get("/employees/:id") do
   @employee = Employee.find(params.fetch("id").to_i())
-  if @employee.project_id
-    @project = Project.find(@employee.project_id)
-  else
-    @project = nil
-  end
   @projects = Project.all
   erb(:employee)
 end
@@ -48,9 +43,9 @@ get("/projects/:id") do
 end
 
 patch("/employees/:id") do
-  project_id = params.fetch("project_id").to_i()
+  project = Project.find(params.fetch("project_id").to_i())
   @employee = Employee.find(params.fetch("id").to_i())
-  @employee.update({:project_id => project_id})
+  @employee.projects.push(project)
   redirect back
 end
 
